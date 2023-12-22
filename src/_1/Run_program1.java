@@ -48,7 +48,7 @@ public class Run_program1 {
         System.out.println("");
         hr.promoteWorkerToManager();
         System.out.println("");
-        hr.removeEmployeesByIndices(Arrays.asList(39, 59, 68));
+        hr.removeEmployeesByIndices(Arrays.asList(17, 59, 68));
         hr.sortEmployeesByIndex();
         System.out.println("");
 
@@ -68,14 +68,13 @@ public class Run_program1 {
 
     // запуск серверов
     public static void withServer() {
-        // создаем и запускаем серваки в отдельных потоках
+
         Thread hrServerThread = new Thread(new HRServer(HR_SERVER_PORT));
         hrServerThread.start();
 
         Thread stServerThread = new Thread(new STServer(ST_SERVER_PORT));
         stServerThread.start();
 
-        // ждем, пока серваки не будут готовы принимать соединения
         waitForServersToStart();
 
         try {
@@ -97,7 +96,7 @@ public class Run_program1 {
         Random random = new Random();
 
         // Создание 25 менеджеров
-        for (int i = 0; i < 25; i++) {
+        for (int i = 1; i <= 25; i++) {
             Manager manager = new Manager();
             manager.setIndex(i + 1);
             manager.setFullName("Manager " + (i + 1));
@@ -130,7 +129,7 @@ public class Run_program1 {
 
     private static void waitForServersToStart() {
         try {
-            Thread.sleep(2000); // временное ожидание
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

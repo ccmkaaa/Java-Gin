@@ -25,16 +25,6 @@ public class ST implements Serializable {
         this.employees = employees;
     }
 
-    public void processData() {
-        // Добавьте вызовы ваших методов обработки данных
-        findEmployeeWithLongestExperience();
-        findOldestEmployee();
-        findYoungestEmployee();
-        findEmployeeWithLowestSalary();
-        countYoungEmployeesAndPercentage();
-        printEmployees();
-    }
-
     // Метод для нахождения самого старого сотрудника
     public Employee findOldestEmployee() {
         Employee oldestEmployee = null;

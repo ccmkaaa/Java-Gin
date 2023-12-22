@@ -32,54 +32,38 @@ public class TextCustom extends JFrame {
             Font font = new Font("Arial", Font.PLAIN, 48);
             g2d.setFont(font);
 
-            String text = "Some Text";
+            String text = "Some Text 123";
 
-            // Цвет текста
-            g2d.setColor(Color.WHITE);
-
-            // Получаем границы текста
+            // границы текста
             FontMetrics fm = g2d.getFontMetrics();
             Rectangle2D textBounds = fm.getStringBounds(text, g2d);
 
-            // Вычисляем координаты для отображения текста
+            // координаты для отображения текста
             int x = (getWidth() - (int) textBounds.getWidth()) / 2;
             int y = (getHeight() + (int) textBounds.getHeight()) / 2;
 
-            // Рисуем текст с черным контуром
+            // рисуем текст с черным контуром
             g2d.setColor(Color.BLACK);
-            // Толщина контура
-            int contourThickness = 2;
+            int contourThickness = 2; // толщина контура
 
-            // Рисуем текст с контуром
-            g2d.drawString(text, x, y);
-
-            // Рисуем контур
+            // рисуем контур
             for (int i = 1; i <= contourThickness; i++) {
                 g2d.drawString(text, x - i, y); // Влево
                 g2d.drawString(text, x + i, y); // Вправо
                 g2d.drawString(text, x, y - i); // Вверх
                 g2d.drawString(text, x, y + i); // Вниз
             }
-            // Рисуем основной текст белым цветом
+            // рисуем основной текст белым цветом (цветом фона)
             g2d.setColor(Color.WHITE);
             g2d.drawString(text, x, y);
 
-            // Применяем эффект тени (1-ый вариант)
-            // AffineTransform transform = new AffineTransform();
-            // transform.setToRotation(Math.PI); // Поворот на 180 градусов
-            // g2d.setTransform(transform);
-            // g2d.setColor(new Color(192, 192, 192)); // Цвет тени
-            // int shadowOffsetX = -250; // -250
-            // g2d.drawString(text, -x + shadowOffsetX, -y); // Рисуем тень
-
-            // Применяем эффект тени (2-ой вариант)
+            // эффект тени
             AffineTransform originalTransform = g2d.getTransform();
             g2d.setColor(new Color(192, 192, 192)); // Цвет тени
 
-            int xOffset = 14;
-            int additionalSpacing = 0; // Дополнительный интервал между буквами тени
+            int xOffset = 14; // чтобы отображение было ровно под текстом
 
-            // Отрисовываем текст тени с перевернутыми буквами
+            // отрисовываем текст тени с перевернутыми буквами
             for (int i = 0; i < text.length(); i++) {
                 char letter = text.charAt(i);
                 String letterString = String.valueOf(letter);
@@ -96,11 +80,11 @@ public class TextCustom extends JFrame {
 
                     g2d.setTransform(originalTransform);
 
-                    xOffset += letterWidth + additionalSpacing; // Учитываем ширину символа
+                    xOffset += letterWidth; // учитываем ширину символа
                 } else {
                     // Если символ - пробел, увеличиваем xOffset на ширину пробела
                     int spaceWidth = fm.stringWidth(" ");
-                    xOffset += spaceWidth + additionalSpacing;
+                    xOffset += spaceWidth;
                 }
             }
 

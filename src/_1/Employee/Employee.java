@@ -102,9 +102,9 @@ public class Employee implements Serializable {
             if (employee1 instanceof Worker && employee2 instanceof Worker) {
                 double defectPercentage1 = ((Worker) employee1).getDefectPercentage();
                 double defectPercentage2 = ((Worker) employee2).getDefectPercentage();
-                return Double.compare(defectPercentage2, defectPercentage1);
+                return Double.compare(defectPercentage1, defectPercentage2);
             }
-            // Обработка случая, когда один из сотрудников не является исполнителем
+            // обработка случая, когда один из сотрудников не является исполнителем
             return 0;
         }
     };
@@ -118,7 +118,7 @@ public class Employee implements Serializable {
                 int rating2 = ((Manager) employee2).getRating();
                 return Integer.compare(rating1, rating2);
             }
-            // Обработка случая, когда один из сотрудников не является менеджером
+            // обработка случая, когда один из сотрудников не является менеджером
             return 0;
         }
     }

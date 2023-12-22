@@ -72,6 +72,8 @@ public class HRServer implements Runnable {
         hr.promoteWorkerToManager();
         System.out.println("");
         hr.removeEmployeesByIndices(Arrays.asList(39, 59, 68));
+        hr.addNewWorkerFromConsole();
+        System.out.println("");
         hr.sortEmployeesByIndex();
         System.out.println("");
         System.out.println("Методы HR выполнились");

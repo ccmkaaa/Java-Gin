@@ -13,7 +13,7 @@ import _1.Employee.Manager;
 import _1.Employee.Worker;
 
 public class HR implements Serializable {
-    private List<Employee> employees = new ArrayList<>();
+    private List<Employee> employees;
 
     public List<Employee> getEmployees() {
         return employees;
@@ -29,18 +29,6 @@ public class HR implements Serializable {
 
     public HR(List<Employee> employees) {
         this.employees = employees;
-    }
-
-    public void processData() {
-        // Добавьте вызовы ваших методов обработки данных
-        awardLongServiceLeave();
-        penalizeTopFiveDefectPercentage();
-        dismissEmployeesOver60();
-        rewardLowestDefectPercentageWorkers();
-        fireManagerWithLowestRating();
-        promoteWorkerToManager();
-        removeEmployeesByIndices(Arrays.asList(39, 59, 68));
-        sortEmployeesByIndex();
     }
 
     // у кого стаж работы больше 25 лет, премируют увеличением отпуска на 5 дней
@@ -62,7 +50,7 @@ public class HR implements Serializable {
 
     public void penalizeTopFiveDefectPercentage() {
         // Сортировка сотрудников по проценту брака в возрастающем порядке
-        Collections.sort(employees, new Employee.EmployeeDefectPercentageComparator());
+        Collections.sort(employees, Collections.reverseOrder(new Employee.EmployeeDefectPercentageComparator()));
 
         // Перебор первых 5 сотрудников и уменьшение оклада на 10%
         int count = 0;
@@ -119,7 +107,7 @@ public class HR implements Serializable {
 
             if (age > 60) {
                 // System.out.println(employee.getAge());
-                iterator.remove(); // Удалить сотрудника из списка
+                iterator.remove();
                 System.out.println("Сотрудник " + employee.getFullName() + " уволен, так как ему старше 60 лет.");
             }
         }
@@ -129,7 +117,7 @@ public class HR implements Serializable {
 
     public void rewardLowestDefectPercentageWorkers() {
         // Сортировка сотрудников по проценту брака в возрастающем порядке
-        Collections.sort(employees, Collections.reverseOrder(new Employee.EmployeeDefectPercentageComparator()));
+        Collections.sort(employees, new Employee.EmployeeDefectPercentageComparator());
 
         // Перебор первых трех сотрудников и увеличение их оклада на 10%
         int count = 0;
@@ -160,7 +148,7 @@ public class HR implements Serializable {
                 employees.remove(i); // Увольнение менеджера
                 System.out.println("Уволен менеджер " + employee.getFullName() + " с наименьшим рейтингом.");
                 // System.out.println(((Manager) employee).getRating());
-                break; // Выходим из цикла после увольнения первого менеджера
+                break; // выходим из цикла после увольнения первого менеджера
             }
         }
     }

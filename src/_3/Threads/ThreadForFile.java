@@ -13,13 +13,11 @@ public class ThreadForFile {
         private String fileName;
         private Semaphore currentSemaphore;
         private Semaphore nextSemaphore;
-        private boolean fileComplete; // флаг для определения завершения файла
 
         public NamePrinter(String fileName, Semaphore currentSemaphore, Semaphore nextSemaphore) {
             this.fileName = fileName;
             this.currentSemaphore = currentSemaphore;
             this.nextSemaphore = nextSemaphore;
-            this.fileComplete = false;
         }
 
         @Override
@@ -39,21 +37,18 @@ public class ThreadForFile {
 
                         currentSemaphore.acquire(); // Ждем разрешения
 
-                        if (!fileComplete) {
-                            System.out.print(firstName + " ");
-                            Thread.sleep(100);
-                            System.out.println(lastName);
+                        System.out.print(firstName + " ");
+                        Thread.sleep(100);
+                        System.out.println(lastName);
 
-                            nextSemaphore.release(); // Разрешаем следующему потоку начать
-                            currentSemaphore.acquire(); // Ждем, пока следующий поток напечатает
-                            currentSemaphore.release(); // Освобождаем, чтобы следующий поток мог напечатать
-                        }
+                        nextSemaphore.release(); // Разрешаем следующему потоку начать
+                        currentSemaphore.acquire(); // Ждем, пока следующий поток напечатает
+                        currentSemaphore.release(); // Освобождаем, чтобы следующий поток мог напечатать
                     }
                 }
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                fileComplete = true; // Устанавливаем флаг завершения файла
                 nextSemaphore.release(); // Сигнализируем, что файл обработан
             }
         }

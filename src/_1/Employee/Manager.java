@@ -6,13 +6,11 @@ public class Manager extends Employee implements Serializable {
     private int popularityRating;
 
     public Manager() {
-        // Вызов конструктора родительского класса
         super();
     }
 
     public Manager(int index, String fullName, String position, int age, double salary, int experience,
             int vacationDays, int popularityRating) {
-        // Вызов конструктора родительского класса и передача аргументов
         super(index, fullName, position, age, salary, experience, vacationDays);
         this.popularityRating = popularityRating;
     }
